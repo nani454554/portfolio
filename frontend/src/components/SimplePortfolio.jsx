@@ -2,39 +2,73 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
-import { Mail, Phone, MapPin, ChevronDown, ChevronUp, Briefcase, User, Download, Code2, Cloud, Database } from 'lucide-react';
+import { useToast } from '../hooks/use-toast';
+import { Mail, Phone, MapPin, ChevronDown, ChevronUp, Briefcase, User, Download, Code2, Cloud, Database, Send } from 'lucide-react';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 const SimplePortfolio = () => {
   const [expandedExperience, setExpandedExperience] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [typedText, setTypedText] = useState('');
+  const [isDownloading, setIsDownloading] = useState(false);
+  const { toast } = useToast();
 
-  const handleDownloadResume = () => {
-    // Add download animation
-    const button = document.querySelector('.download-btn');
-    button.classList.add('animate-pulse');
-    setTimeout(() => {
+  const handleDownloadResume = async () => {
+    setIsDownloading(true);
+    
+    try {
+      // Add download animation
+      const button = document.querySelector('.download-btn');
+      button.classList.add('animate-pulse');
+      
+      // Call backend API to download resume
+      const response = await axios.get(`${API}/download-resume`, {
+        responseType: 'blob', // Important for file downloads
+      });
+      
+      // Create blob and download
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'Nikhil_Kumar_Bandi_Resume.pdf');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      
       button.classList.remove('animate-pulse');
-      alert('Resume download started!');
-    }, 1000);
+      
+      toast({
+        title: "Resume Downloaded!",
+        description: "Your resume has been downloaded successfully.",
+      });
+      
+    } catch (error) {
+      console.error('Download error:', error);
+      toast({
+        title: "Download Failed",
+        description: "There was an error downloading the resume. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
+  const trackPageView = async () => {
+    try {
+      await axios.post(`${API}/track-view`);
+    } catch (error) {
+      console.error('Error tracking page view:', error);
+    }
   };
 
   useEffect(() => {
     setIsLoaded(true);
-    
-    // Typing animation for the bio
-    const bioText = "IT Professional with 3+ years of experience in Software Development...";
-    let i = 0;
-    const typeTimer = setInterval(() => {
-      if (i < bioText.length) {
-        setTypedText(bioText.slice(0, i + 1));
-        i++;
-      } else {
-        clearInterval(typeTimer);
-      }
-    }, 50);
-
-    return () => clearInterval(typeTimer);
+    trackPageView();
   }, []);
 
   const personalInfo = {
@@ -105,6 +139,14 @@ const SimplePortfolio = () => {
     setExpandedExperience(expandedExperience === id ? null : id);
   };
 
+  const handleEmailClick = () => {
+    window.open(`mailto:${personalInfo.email}?subject=Let's collaborate&body=Hi Nikhil,%0D%0A%0D%0AI'm interested in discussing potential opportunities with you.%0D%0A%0D%0ABest regards,`, '_blank');
+  };
+
+  const handlePhoneClick = () => {
+    window.open(`tel:${personalInfo.phone}`, '_blank');
+  };
+
   const techStack = ["DevOps", "AWS", "GCP", "Docker", "Kubernetes", "Jenkins", "GitLab", "Terraform", "Python"];
 
   return (
@@ -130,11 +172,17 @@ const SimplePortfolio = () => {
             
             {/* Floating contact info */}
             <div className="flex items-center justify-center gap-8 text-gray-300 mb-6 flex-wrap">
-              <div className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-300 cursor-pointer group">
+              <div 
+                className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-300 cursor-pointer group"
+                onClick={handleEmailClick}
+              >
                 <Mail className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 <span className="text-sm">{personalInfo.email}</span>
               </div>
-              <div className="flex items-center gap-2 hover:text-green-400 transition-colors duration-300 cursor-pointer group">
+              <div 
+                className="flex items-center gap-2 hover:text-green-400 transition-colors duration-300 cursor-pointer group"
+                onClick={handlePhoneClick}
+              >
                 <Phone className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 <span className="text-sm">{personalInfo.phone}</span>
               </div>
@@ -159,10 +207,11 @@ const SimplePortfolio = () => {
             {/* Enhanced download button */}
             <Button 
               onClick={handleDownloadResume}
-              className="download-btn bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-10 py-4 text-lg font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-purple-500/25"
+              disabled={isDownloading}
+              className="download-btn bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-10 py-4 text-lg font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-purple-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Download className="w-5 h-5 mr-3" />
-              Download Resume
+              {isDownloading ? 'Generating Resume...' : 'Download Resume'}
             </Button>
           </div>
 
@@ -180,7 +229,7 @@ const SimplePortfolio = () => {
           </div>
         </div>
 
-        {/* Bio Section with typing effect */}
+        {/* Bio Section */}
         <Card className={`mb-8 bg-gray-800/50 border-gray-700 backdrop-blur-sm transition-all duration-700 hover:bg-gray-800/70 hover:shadow-xl hover:shadow-blue-500/10 ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`} style={{transitionDelay: '0.2s'}}>
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-xl text-white">
@@ -194,7 +243,6 @@ const SimplePortfolio = () => {
           <CardContent>
             <p className="text-gray-300 leading-relaxed text-lg">
               {personalInfo.bio}
-              <span className="animate-pulse">|</span>
             </p>
           </CardContent>
         </Card>
@@ -329,7 +377,7 @@ const SimplePortfolio = () => {
           <div className="flex justify-center gap-6">
             <Button 
               variant="outline"
-              onClick={() => window.open(`mailto:${personalInfo.email}`, '_blank')}
+              onClick={handleEmailClick}
               className="border-gray-600 text-gray-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all duration-300 px-6 py-3 rounded-xl group"
             >
               <Mail className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
@@ -337,7 +385,7 @@ const SimplePortfolio = () => {
             </Button>
             <Button 
               variant="outline"
-              onClick={() => window.open(`tel:${personalInfo.phone}`, '_blank')}
+              onClick={handlePhoneClick}
               className="border-gray-600 text-gray-300 hover:bg-green-600 hover:border-green-600 hover:text-white transition-all duration-300 px-6 py-3 rounded-xl group"
             >
               <Phone className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
