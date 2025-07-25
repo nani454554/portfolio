@@ -264,7 +264,7 @@ const Contact = () => {
               </p>
               <div className="flex justify-center gap-2">
                 <Badge variant="outline" className="bg-white/10 text-white border-white/20">
-                  < 24hr Response
+                  &lt; 24hr Response
                 </Badge>
                 <Badge variant="outline" className="bg-white/10 text-white border-white/20">
                   Professional Service
