@@ -12,7 +12,7 @@ const SimplePortfolio = () => {
   };
 
   const personalInfo = {
-    name: "Nikhil Goud Bandini",
+    name: "Nikhil Kumar Bandi",
     email: "bandinikhilgoud4545@gmail.com",
     phone: "+91 XXXXX-XXXXX",
     location: "Available Globally",
