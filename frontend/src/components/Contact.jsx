@@ -6,7 +6,7 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Label } from './ui/label';
 import { useToast } from '../hooks/use-toast';
-import { Mail, Phone, MapPin, Send, MessageSquare, User, Building } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageSquare, User, Building, Briefcase } from 'lucide-react';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -20,11 +20,11 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const contactInfo = {
-    email: "professional@email.com",
-    phone: "+1 (555) 123-4567",
+    email: "bandinikhilgoud4545@gmail.com",
+    phone: "+91 XXXXX-XXXXX",
     location: "Available Globally",
-    linkedin: "linkedin.com/in/professional",
-    github: "github.com/professional"
+    linkedin: "linkedin.com/in/nikhil-goud",
+    github: "github.com/nikhilgoud"
   };
 
   const handleInputChange = (e) => {
@@ -65,9 +65,14 @@ const Contact = () => {
       description: "Discuss your DevOps and cloud infrastructure needs"
     },
     {
+      icon: <Briefcase className="w-5 h-5" />,
+      title: "Freelance Opportunities",
+      description: "Explore freelance projects and consulting engagements"
+    },
+    {
       icon: <User className="w-5 h-5" />,
       title: "Career Opportunities",
-      description: "Explore potential collaboration and job opportunities"
+      description: "Discuss potential full-time and contract positions"
     },
     {
       icon: <MessageSquare className="w-5 h-5" />,
@@ -256,18 +261,22 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            {/* Response Time */}
-            <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-xl p-6 text-center">
-              <h3 className="text-xl font-bold text-white mb-2">Quick Response Guarantee</h3>
+            {/* Availability Status */}
+            <div className="bg-gradient-to-r from-green-600/20 to-blue-600/20 rounded-xl p-6 text-center border border-green-500/20">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                <h3 className="text-xl font-bold text-white">Currently Available</h3>
+              </div>
               <p className="text-gray-300 mb-4">
-                I typically respond to all inquiries within 24 hours during business days.
+                Open to freelance projects, consulting opportunities, and full-time positions. 
+                Ready to start immediately.
               </p>
               <div className="flex justify-center gap-2">
                 <Badge variant="outline" className="bg-white/10 text-white border-white/20">
                   &lt; 24hr Response
                 </Badge>
                 <Badge variant="outline" className="bg-white/10 text-white border-white/20">
-                  Professional Service
+                  Remote Ready
                 </Badge>
               </div>
             </div>
@@ -283,7 +292,7 @@ const Contact = () => {
             <Button 
               variant="outline" 
               className="border-white/20 text-white hover:bg-white hover:text-gray-900"
-              onClick={() => window.open('mailto:professional@email.com', '_blank')}
+              onClick={() => window.open('mailto:bandinikhilgoud4545@gmail.com', '_blank')}
             >
               <Mail className="w-4 h-4 mr-2" />
               Email Directly
@@ -291,7 +300,7 @@ const Contact = () => {
             <Button 
               variant="outline" 
               className="border-white/20 text-white hover:bg-white hover:text-gray-900"
-              onClick={() => window.open('tel:+15551234567', '_blank')}
+              onClick={() => window.open('tel:+91XXXXXXXXXX', '_blank')}
             >
               <Phone className="w-4 h-4 mr-2" />
               Call Now

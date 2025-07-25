@@ -2,14 +2,12 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
-import { GraduationCap, Award, ExternalLink, Calendar } from 'lucide-react';
+import { GraduationCap, Award, ExternalLink } from 'lucide-react';
 
 const Education = () => {
   const education = {
     degree: "Bachelor of Science in Computer Science",
     university: "Osmania University",
-    year: "2019",
-    duration: "2016 - 2019",
     location: "Hyderabad, India",
     highlights: [
       "Comprehensive study of computer science fundamentals",
@@ -22,7 +20,6 @@ const Education = () => {
   const certification = {
     title: "Google Cloud Platform Associate Cloud Engineer",
     issuer: "Google Cloud",
-    issued: "2024",
     status: "Active",
     credlyUrl: "https://www.credly.com/badges/53fdf088-8ff1-4d0c-a419-48b4a9ca42de/public_url",
     description: "Demonstrates ability to deploy applications, monitor operations, and manage enterprise solutions on Google Cloud Platform.",
@@ -76,11 +73,7 @@ const Education = () => {
                 </div>
               </div>
               <div className="flex items-center gap-4 text-sm text-gray-600">
-                <div className="flex items-center gap-1">
-                  <Calendar className="w-4 h-4" />
-                  <span>{education.duration}</span>
-                </div>
-                <Badge variant="secondary">Graduated {education.year}</Badge>
+                <Badge variant="secondary">Computer Science Graduate</Badge>
               </div>
             </CardHeader>
             <CardContent>
@@ -117,10 +110,6 @@ const Education = () => {
                 </div>
               </div>
               <div className="flex items-center gap-4 text-sm text-gray-600">
-                <div className="flex items-center gap-1">
-                  <Calendar className="w-4 h-4" />
-                  <span>Issued {certification.issued}</span>
-                </div>
                 <Badge className="bg-green-100 text-green-800">{certification.status}</Badge>
               </div>
             </CardHeader>

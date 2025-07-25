@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
-import { Calendar, MapPin, Building } from 'lucide-react';
+import { MapPin, Building } from 'lucide-react';
 
 const Experience = () => {
   const experiences = [
@@ -9,7 +9,6 @@ const Experience = () => {
       id: 1,
       role: "Platform Engineer",
       company: "SIDGS DIGISOL Pvt Ltd",
-      duration: "Feb 2024 - Present",
       location: "Current Position",
       type: "Full-time",
       responsibilities: [
@@ -35,7 +34,6 @@ const Experience = () => {
       id: 2,
       role: "System Administrator",
       company: "Anything 4 Home Ltd",
-      duration: "Jul 2020 - Sep 2022",
       location: "Previous Role",
       type: "Full-time",
       responsibilities: [
@@ -60,13 +58,11 @@ const Experience = () => {
     {
       client: "Banco de Oro (BDO) Bank",
       role: "DevOps Engineer/Application Support Engineer",
-      duration: "Feb 2024 - Present",
       description: "Led DevOps initiatives for a major banking institution, focusing on secure, scalable microservices architecture and payment system reliability."
     },
     {
       client: "Anything 4 Home Ltd",
       role: "System Administrator",
-      duration: "Jul 2020 - Sep 2022",
       description: "Managed comprehensive system administration and monitoring infrastructure for e-commerce platform with focus on high availability."
     }
   ];
@@ -103,10 +99,6 @@ const Experience = () => {
                           </div>
                         </div>
                         <div className="flex flex-col lg:items-end gap-2">
-                          <div className="flex items-center gap-2 text-gray-600">
-                            <Calendar className="w-4 h-4" />
-                            <span>{exp.duration}</span>
-                          </div>
                           <div className="flex items-center gap-2 text-gray-600">
                             <MapPin className="w-4 h-4" />
                             <span>{exp.location}</span>
@@ -172,9 +164,8 @@ const Experience = () => {
               <Card key={index} className="hover:shadow-lg transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold text-blue-600">{project.client}</CardTitle>
-                  <div className="flex items-center gap-2 text-gray-600">
+                  <div className="flex items-center gap-2">
                     <Badge variant="outline">{project.role}</Badge>
-                    <span className="text-sm">{project.duration}</span>
                   </div>
                 </CardHeader>
                 <CardContent>

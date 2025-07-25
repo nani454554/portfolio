@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
-import { Target, Users, Award, TrendingUp } from 'lucide-react';
+import { Target, Users, Award, TrendingUp, Briefcase, Clock } from 'lucide-react';
 
 const About = () => {
   const highlights = [
@@ -52,6 +52,22 @@ const About = () => {
               Passionate about implementing modern DevOps practices, optimizing cloud infrastructure, and ensuring 
               high availability and performance of critical systems.
             </p>
+
+            {/* Freelance & Opportunity Interest */}
+            <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 border-l-4 border-green-500">
+              <div className="flex items-center gap-3 mb-3">
+                <Briefcase className="w-6 h-6 text-green-600" />
+                <h3 className="text-lg font-semibold text-gray-900">Open to New Opportunities</h3>
+              </div>
+              <p className="text-gray-700 mb-3">
+                I'm actively seeking exciting freelance projects, consulting opportunities, and full-time positions 
+                where I can leverage my DevOps expertise to drive innovation and efficiency.
+              </p>
+              <div className="flex items-center gap-2 text-sm">
+                <Clock className="w-4 h-4 text-blue-600" />
+                <span className="text-gray-600">Available for immediate start • Remote & On-site opportunities welcome</span>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-6">
@@ -69,7 +85,7 @@ const About = () => {
           </div>
         </div>
 
-        {/* Key Competencies */}
+        {/* Core Competencies */}
         <div className="bg-gray-50 rounded-2xl p-8">
           <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Core Competencies</h3>
           <div className="grid md:grid-cols-3 gap-6">
@@ -93,6 +109,29 @@ const About = () => {
               </div>
               <h4 className="font-semibold text-gray-900 mb-2">Monitoring & Security</h4>
               <p className="text-gray-600 text-sm">System observability, security compliance, and performance optimization</p>
+            </div>
+          </div>
+        </div>
+
+        {/* What I'm Looking For */}
+        <div className="mt-12 text-center bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">What I'm Looking For</h3>
+          <p className="text-lg text-gray-700 max-w-3xl mx-auto mb-6 leading-relaxed">
+            I'm interested in challenging projects and roles that allow me to contribute to innovative solutions, 
+            work with cutting-edge technologies, and help organizations scale their infrastructure efficiently.
+          </p>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="bg-white rounded-lg p-4 shadow-sm">
+              <h4 className="font-semibold text-gray-900 mb-2">Freelance Projects</h4>
+              <p className="text-sm text-gray-600">Short-term and long-term DevOps consulting and implementation projects</p>
+            </div>
+            <div className="bg-white rounded-lg p-4 shadow-sm">
+              <h4 className="font-semibold text-gray-900 mb-2">Contract Opportunities</h4>
+              <p className="text-sm text-gray-600">6-12 month contracts for infrastructure modernization and automation</p>
+            </div>
+            <div className="bg-white rounded-lg p-4 shadow-sm">
+              <h4 className="font-semibold text-gray-900 mb-2">Full-Time Positions</h4>
+              <p className="text-sm text-gray-600">Senior DevOps, SRE, or Platform Engineering roles in innovative companies</p>
             </div>
           </div>
         </div>
