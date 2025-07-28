@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Install dependencies
 COPY package*.json ./
-RUN npm install
+RUN npm install && npm audit fix --force
 
 # Copy source code
 COPY . .
